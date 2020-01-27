@@ -5,18 +5,16 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import stepDefinitions.Hooks;
-import utilities.Constants;
-import utilities.GenericUtility;
+import utilities.GenericUtilitiesInterface;
 
 public class RecargasCelularPage {
-	GenericUtility gen = new GenericUtility();
+	
 	Properties prop;
 	WebDriver driver;
 	Logger log = Logger.getLogger(RecargasCelularPage.class.getName());
@@ -65,7 +63,7 @@ public class RecargasCelularPage {
 
 	public void selectOperator(String property) {
 		log.info("Operator Name = "+property);
-		gen.clickElement(operator);
+		GenericUtilitiesInterface.clickElement(operator);
 		setOperatorFromSuggestions(property);
 		
 	}
@@ -75,7 +73,7 @@ public class RecargasCelularPage {
 		{
 			if(operatorList.get(i).getAttribute("data-name").equalsIgnoreCase(operator))
 			{
-				gen.clickElement(operatorList.get(i));
+				GenericUtilitiesInterface.clickElement(operatorList.get(i));
 				break;
 			}
 		}
@@ -90,7 +88,7 @@ public class RecargasCelularPage {
 
 	public void selectAmount(String amount) {
 		log.info("Amount = "+amount);
-		gen.clickElement(amountEdit);
+		GenericUtilitiesInterface.clickElement(amountEdit);
 		selectamountFromSuggestions(amount);
 	}
 
@@ -99,7 +97,7 @@ public class RecargasCelularPage {
 		{
 			if(amountList.get(i).getAttribute("data-name").equalsIgnoreCase(amount2))
 			{
-				gen.clickElement(amountList.get(i));
+				GenericUtilitiesInterface.clickElement(amountList.get(i));
 				break;
 			}
 		}
@@ -107,7 +105,7 @@ public class RecargasCelularPage {
 	}
 
 	public void clickPaymet() {
-		gen.clickElement(paymentButton);
+		GenericUtilitiesInterface.clickElement(paymentButton);
 		
 	}
 }

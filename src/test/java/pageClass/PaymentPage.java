@@ -2,7 +2,6 @@ package pageClass;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -11,17 +10,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import cucumber.api.java.en.Then;
 import stepDefinitions.Hooks;
 import utilities.Constants;
-import utilities.GenericUtility;
+import utilities.GenericUtilitiesInterface;
 
 public class PaymentPage {
-	GenericUtility gen = new GenericUtility();
+	
 	Constants con = new Constants();
 	Properties prop;
 	WebDriver driver;
@@ -80,7 +77,7 @@ public class PaymentPage {
 		expyear.sendKeys(al.get(3));
 		cvv.sendKeys(al.get(4));
 		email.sendKeys(al.get(5));
-		gen.clickElement(payment);		
+		GenericUtilitiesInterface.clickElement(payment);		
 	}
 	
 	
@@ -104,7 +101,7 @@ public class PaymentPage {
 		
 		WebDriverWait wait = new WebDriverWait(this.driver, 10);
 		wait.until(ExpectedConditions.visibilityOf(fbLoginButton));
-		Assert.assertTrue(gen.elementDisplayed(fbLoginButton));
+		Assert.assertTrue(GenericUtilitiesInterface.elementDisplayed(fbLoginButton));
 			
 	}
 
