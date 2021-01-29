@@ -58,9 +58,11 @@ public class Hooks {
 		String scenarioName = scenario.getName();
 		DateFormat dat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date date = new Date();
+		scenario.log("SCENARIO_NAME = " + scenarioName + " Date & Time = " + dat.format(date));
 	//	scenario.write("SCENARIO_NAME = " + scenarioName + " Date & Time = " + dat.format(date));
 		final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 		// embed it in the report.
+		scenario.attach(screenshot,"image/png",scenarioName);
 	//	scenario.embed(screenshot, "image/png");
 
 	}
