@@ -1,21 +1,27 @@
 package pageClass;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import stepDefinitions.Hooks;
 import utilities.Constants;
 import utilities.GenericUtilitiesInterface;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PaymentPage {
 	
@@ -30,7 +36,7 @@ public class PaymentPage {
 
 		PageFactory.initElements(this.driver, this);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(50, SECONDS);
 	}
 
 	@FindBy(id = "payment-form")
@@ -63,8 +69,24 @@ public class PaymentPage {
 	@FindBy(xpath = "//*[@class='modal-dialog']/div[@class='modal-content']//div[@class='modal-body']/table//div[@class='facebookButton point']")
 	WebElement fbLoginButton;
 	
-	public void validatePaymentPageLoaded() {
-		Assert.assertTrue(payform.isDisplayed());
+	public void validatePaymentPageLoaded() {/*
+WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	webDriverWait.until(ExpectedConditions.visibilityOf(payform));*/
+		//		Assert.assertTrue(payform.isDisplayed());
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofSeconds(10))
+				.pollingEvery(Duration.ofSeconds(2))
+				.ignoring(NoSuchElementException.class);
+
+		WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
+			public WebElement apply(WebDriver driver) {
+				return driver.findElement(By.id("foo"));
+			}
+		});
+
+
+
+
 
 	}
 
@@ -99,7 +121,7 @@ public class PaymentPage {
 
 	public void verifyModalWindowForRegistration() {
 		
-		WebDriverWait wait = new WebDriverWait(this.driver, 10);
+		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOf(fbLoginButton));
 		Assert.assertTrue(GenericUtilitiesInterface.elementDisplayed(fbLoginButton));
 			
